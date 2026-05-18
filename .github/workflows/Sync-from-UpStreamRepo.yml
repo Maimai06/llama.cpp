@@ -1,4 +1,4 @@
-name: Upstream Sync (Branch, Tags, Releases)
+name: Upstream Sync (Branch, Tags)
 
 permissions:
     contents: write
