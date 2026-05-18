@@ -17,3 +17,4 @@ jobs:
           PLUGIN_USERNAME: "cnb"
           PLUGIN_PASSWORD: ${{ secrets.GIT_PASSWORD }}
           PLUGIN_SYNC_MODE: "rebase"
+          PLUGIN_PUSH_TAGS: "true"
