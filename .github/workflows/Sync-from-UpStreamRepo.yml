@@ -1,8 +1,6 @@
 name: Upstream Sync
 
-permissions:
-    contents: write
-    workflows: write   # 👈 添加这一行，允许修改 .github/workflows 下的文件
+permissions: write-all
 
 on:
     schedule:
