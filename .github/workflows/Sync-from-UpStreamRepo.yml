@@ -17,8 +17,11 @@ jobs:
         steps:
             - name: Checkout target repo
               uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0          # 拉取完整历史，否则无法获取 tags
+                  token: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: Sync Upstream
+            - name: Sync Upstream (branch)
               uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
               with:
                   target_repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -27,8 +30,16 @@ jobs:
                   target_sync_branch: master
                   test_mode: false
 
+            - name: Fetch upstream tags
+              run: |
+                  git remote add upstream https://github.com/ggml-org/llama.cpp.git
+                  git fetch upstream --tags
+
+            - name: Push tags to origin
+              run: git push origin --tags
+
             - name: Check for Failure
               if: failure()
               run: |
-                  echo "[Error] Due to a change in the workflow file of the upstream repository, GitHub has automatically suspended the scheduled automatic update. You need to manually sync your fork."
+                  echo "[Error] Sync failed. Please check manually."
                   exit 1
