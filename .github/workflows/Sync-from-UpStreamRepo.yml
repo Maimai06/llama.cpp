@@ -18,7 +18,7 @@ jobs:
             - name: Checkout target repo
               uses: actions/checkout@v3
               with:
-                  fetch-depth: 0          # 拉取完整历史，否则无法获取 tags
+                  fetch-depth: 0
                   token: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Sync Upstream (branch)
@@ -32,7 +32,8 @@ jobs:
 
             - name: Fetch upstream tags
               run: |
-                  git remote add upstream https://github.com/ggml-org/llama.cpp.git
+                  # 如果 upstream 远程仓库不存在则添加，存在则更新 URL
+                  git remote add upstream https://github.com/ggml-org/llama.cpp.git 2>/dev/null || git remote set-url upstream https://github.com/ggml-org/llama.cpp.git
                   git fetch upstream --tags
 
             - name: Push tags to origin
