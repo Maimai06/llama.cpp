@@ -10,7 +10,7 @@ jobs:
           fetch-depth: 0
       
       - name: Sync to CNB Repository
-        uses: docker://tencentcom/git-sync
+        uses: docker://docker.cnb.cool/wuyin.keji/dockerenv/git-sync:latest
         env:
           PLUGIN_TARGET_URL: "https://cnb.cool/wuyin.keji/Tools/llama.cpp"
           PLUGIN_AUTH_TYPE: "https"
